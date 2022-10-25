@@ -8,11 +8,11 @@ interface BlockShape {
 }
 
 class Block implements BlockShape {
-  public hash: string;
+  public readonly hash: string;
   constructor(
-    public prevHash: string,
-    public height: number,
-    public data: string
+    public readonly prevHash: string,
+    public readonly height: number,
+    public readonly data: string
   ) {
     this.hash = Block.caculateHash(prevHash, height, data);
   }
@@ -39,8 +39,8 @@ class BlockChain {
     );
     this.blocks.push(newBlock);
   }
-  public getBlocks() {
-    return [...this.blocks];
+  public getBlocks(): readonly Block[] {
+    return this.blocks;
   }
 }
 
@@ -49,7 +49,5 @@ blockchain.addBlock("First one");
 blockchain.addBlock("Second one");
 blockchain.addBlock("Third one");
 blockchain.addBlock("Fourth one");
-
-blockchain.getBlocks().push(new Block("XXXX", 1234567, "Hacked"));
 
 console.log(blockchain.getBlocks());
