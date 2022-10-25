@@ -1,3 +1,23 @@
-import { init, exit } from "./myPackage";
+import crypto from "crypto";
 
-init({ debug: true, url: "hello" });
+interface BlockShape {
+  hash: string;
+  prevHash: string;
+  height: number;
+  data: string;
+}
+
+class Block implements BlockShape {
+  public hash: string;
+  constructor(
+    public prevHash: string,
+    public height: number,
+    public data: string
+  ) {
+    this.hash = Block.caculateHash(prevHash, height, data);
+  }
+  static caculateHash(prevHash: string, height: number, data: string) {
+    const toHash = `${prevHash}${height}${data}`;
+    return crypto.createHash("sha256").update(toHash).digest("hex");
+  }
+}
