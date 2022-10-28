@@ -1,4 +1,4 @@
-declare module "lodash" {
+declare module "wow" {
   function head<T>(array: T[]): T | undefined;
 }
 //function hasIn(...): ...
